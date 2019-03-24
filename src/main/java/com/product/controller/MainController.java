@@ -40,7 +40,7 @@ public class MainController {
 		List<Image> images = ps.findAllImage(1);
 		for (int i=0; i<images.size();i++) {
 			Image im = images.get(i);
-			System.out.println(im.Path);
+			System.out.println(im.path);
 		}
 	return ps.findAllImage(1);	
 	}
@@ -56,6 +56,14 @@ public class MainController {
 	public HashMap<String,List<Product>> updateProduct(@PathVariable("id") Integer id ,
 			                                           @PathVariable("stock") Integer stock) {
 		List<Product> prList =  ps.updateProductStock(id,stock);
+		mp.put("products",prList);
+		return mp;	
+	}
+    
+    @RequestMapping(value="/updateOrder/{id}/{stock}" , method = RequestMethod.PATCH)
+	public HashMap<String,List<Product>> updateProductOrder(@PathVariable("id") Integer id ,
+			                                           @PathVariable("stock") Integer stock) {
+		List<Product> prList =  ps.updateProductStockOrder(id,stock);
 		mp.put("products",prList);
 		return mp;	
 	}

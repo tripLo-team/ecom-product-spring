@@ -1,5 +1,6 @@
 package com.product.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -20,8 +21,10 @@ public class Image {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 public int id;
 	
-	public String Path;
+	@Column(name = "Path")
+	public String path;
 	
-	public int Product_id;
+	@Column(name = "Product_id")
+	public int product_id;
 
 }

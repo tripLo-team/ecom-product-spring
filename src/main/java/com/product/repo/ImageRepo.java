@@ -14,7 +14,7 @@ import com.product.model.Image;
 public interface ImageRepo extends JpaRepository<Image,Integer>{
 
 	
-	@Query("Select u from Image u WHERE u.Product_id = ?1")
+	@Query("Select u from Image u WHERE u.product_id = ?1")
 	List<Image> findAllByProduct_id(Integer Product_id);
 
 }

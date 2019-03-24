@@ -59,4 +59,9 @@ public List<Product> updateProductStock(int productId, int stock) {
 	return findOneProduct(productId);
 }
 
+public List<Product> updateProductStockOrder(int productId, int stock) {
+	int state = pr.setProductStockOrder(productId,stock);
+	return findOneProduct(productId);
+}
+
 }

@@ -26,7 +26,7 @@ public class Product {
 	@Column(name = "Product_id")
   int product_id;
 	@Column(name = "Prouct_name")
-	private String Prouct_name; 
+	private String Product_name; 
 	@Column(name = "Product_description")
 	private String product_description ;
 	@Column(name = "Unit_Price")
@@ -59,15 +59,15 @@ public int getProduct_id() {
 
 
 
-	public String getProuct_name() {
-		return Prouct_name;
+	public String getProduct_name() {
+		return Product_name;
 	}
 
 
 
 
-	public void setProuct_name(String prouct_name) {
-		Prouct_name = prouct_name;
+	public void setProduct_name(String prouct_name) {
+		Product_name = prouct_name;
 	}
 
 

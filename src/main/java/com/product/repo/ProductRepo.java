@@ -22,4 +22,9 @@ public interface ProductRepo extends JpaRepository<Product , Integer> {
 	@Transactional
 	@Query("update Product p set p.units_in_Stock = ?2 where p.product_id = ?1")
 	int setProductStock(int Product_id , int stock);
+	
+	@Modifying
+	@Transactional
+	@Query("update Product p set p.units_on_order = ?2 where p.product_id = ?1")
+	int setProductStockOrder(int Product_id , int stock);
 }
