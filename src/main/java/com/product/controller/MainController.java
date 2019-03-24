@@ -52,6 +52,7 @@ public class MainController {
 		return mp;	
 	}
 	
+	//update
     @RequestMapping(value="/update/{id}/{stock}" , method = RequestMethod.PATCH)
 	public HashMap<String,List<Product>> updateProduct(@PathVariable("id") Integer id ,
 			                                           @PathVariable("stock") Integer stock) {
