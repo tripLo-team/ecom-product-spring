@@ -1,14 +1,18 @@
 package com.product.service;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.product.model.Image;
 import com.product.model.Product;
+import com.product.repo.ImageRepo;
 import com.product.repo.ProductRepo;
 
 @Service
@@ -19,49 +23,40 @@ public class ProductService {
 	@Qualifier("productRepo")
 	ProductRepo pr;
 
-Hashtable<String,Product> mp = new Hashtable<>();
-
-public int insertProduct(Product p) {
-	pr.save(p);
-	return p.getProductID();
-}
+	@Autowired
+	@Qualifier("imageRepo")
+	ImageRepo im;
 
 public List<Product> findAll() {
-	return pr.findAll();
+	List<Product> productList = pr.findAll();
+	for(int i=0;i<productList.size();i++) {
+		Product pr = productList.get(i);
+		System.out.println(pr.getProduct_id());
+		List<Image> imageList = im.findAllByProduct_id(pr.getProduct_id());
+		pr.setImageList(imageList);
+	}
+	return productList;
 }
 
-public Product findProduct(int id) {
-	return pr.getOne(id);
-}
-
-public ProductService() {
-	Product p1 = new Product();
-	p1.setProductID(1);
-	p1.setProductName("Nivea Deo");
-	p1.setProductDescription("The odour stays for hours");
-	p1.setUnitPrice(200);
-	
-	mp.put("1", p1);
-	
-	Product p2 = new Product();
-	p2.setProductID(2);
-	p2.setProductName("Foundation");
-	p2.setProductDescription("For a flawless skin color");
-	p2.setUnitPrice(1000);
-	
-	mp.put("2", p2);
-	
-}
-
-public Product getProduct(int id) {
-	if (mp.contains(id)) {
-		return mp.get(id);
-	} else {
+public List<Product> findOneProduct(Integer id) {
+	Product product = pr.findByProduct_id(id);
+	if (product == null) {
 		return null;
 	}
+	List<Image> imageList = im.findAllByProduct_id(id);
+	product.setImageList(imageList);
+	List<Product> prList = new ArrayList<>();
+	prList.add(product);
+	return prList;
 }
 
-public Hashtable<String,Product> getAllProduct() {
-	return mp;
+public List<Image> findAllImage(int id) {
+	return im.findAllByProduct_id(id);
 }
+
+public List<Product> updateProductStock(int productId, int stock) {
+	int state = pr.setProductStock(productId,stock);
+	return findOneProduct(productId);
+}
+
 }
